@@ -86,10 +86,10 @@ public class BankingServiceImpl implements BankingService {
 		Branch branch = null;
 		//Check if branch exists, if no branch exists with branch id, account cannot be created 
 		Optional<Branch> branchOp = branchRepository.findByBranchId(branchId);
-		if(branchOp.isEmpty()) {
-			return "Bank Account cannot be created as branch details could not be extracted from branchId";
-		}else {
+		if(branchOp.isPresent()) {
 			branch = branchOp.get();
+		}else {
+			return "Bank Account cannot be created as branch details could not be extracted from branchId";
 		}
 		
 		Optional<Customer> customerOp = customerRepository.findByPanNumber(panNumber);
@@ -117,7 +117,6 @@ public class BankingServiceImpl implements BankingService {
 		}
 		
 		bankAccountToSave = bankAccount;
-		//To get Auto incremented account number, setting null, in setter method the logic is defined for increment
 		BigDecimal maxId = bankAccountRepository.findmaxId();
 		if(null!=maxId) {
 			bankAccountToSave.setAccountNumber(String.valueOf(maxId.plus()));
