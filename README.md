@@ -7,6 +7,7 @@ Please find the Rest API documentation in the below url
 
 http://localhost:8080/bank/swagger-ui.html
 
+All the rest services can be validated with sample request/response using Swagger UI link.
 
 ## H2 In-Memory Database
 
